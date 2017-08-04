@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="cloudartifact" default="cloudartifact">
+
+    <!-- default configure info properties -->
+    <dirname property="task.basedir" file="${ant.file.cloudartifact}" />
+    <basename property="task.name" file="${task.basedir}" />
+    <property name="task.reports.dir" location="${reports}/${task.name}" />
+    <import file="${task.basedir}/macro/artifact_macro.xml" optional="true" />
+
+    <target name="cloudartifact">
+
+        <property name="scm.type" value="git" />
+
+        <!-- default value arguments -->
+        <property name="cloud.provider" value="qcloud" />
+        <property name="app.id" value="" />
+        <property name="secret.id" value="" />
+        <property name="secret.key" value="" />
+        <property name="region" value="" />
+        <property name="bucket" value="" />
+
+        <property name="artifact.lane" value="jenkins" />
+        <property name="artifact.suffix" value="" />
+
+        <!-- when artifact.version is '' , then create svn.info directory -->
+        <property name="artifact.version" value="" />
+
+        <!-- copy file by fileset type -->
+        <property name="fileset.dir" value="" />
+        <property name="fileset.includes" value="" />
+        <property name="fileset.excludes" value="" />
+
+        <property name="allow.redeploy" value="false" />
+
+        <!-- is create md5 file -->
+        <property name="is.create.checksum" value="true" />
+
+        <!-- validate require arguments -->
+        <if>
+            <or>
+                <not>
+                    <isset property="group.id" />
+                </not>
+                <not>
+                    <isset property="artifact.id" />
+                </not>
+            </or>
+            <then>
+                <fail message="--// don't exist product info(group.id and artifact.id) properties." />
+            </then>
+        </if>
+
+        <!-- make task `.reports/ftpartifact' directory -->
+        <delete dir="${task.reports.dir}" />
+        <mkdir dir="${task.reports.dir}" />
+
+        <echo message="--//${task.reports.dir}" />
+
+        <!-- call cloudartifact-macro -->
+        <cloudartifact-macro scmType="${scm.type}"
+                           artifactLane="${artifact.lane}" artifactSuffix="${artifact.suffix}"
+                           cloudProvider="${cloud.provider}" appId="${app.id}" secretId="${secret.id}" secretKey="${secret.key}" region="${region}" bucket="${bucket}"
+                           groupId="${group.id}" artifactId="${artifact.id}" artifactVersion="${artifact.version}"
+                           filesetDir="${fileset.dir}" filesetIncludes="${fileset.includes}" filesetExcludes="${fileset.excludes}"
+                           isCreateChecksum="${is.create.checksum}" allowRedeploy="${allow.redeploy}"/>
+
+    </target>
+
+</project>
