@@ -17,8 +17,7 @@
         <attribute name="secretKey" />
         <attribute name="region" />
         <attribute name="bucket" />
-
-        <attribute name="filesetDir" default="" />
+        <attribute name="filesetDir" />
         <attribute name="filesetIncludes" default="" />
         <attribute name="filesetExcludes" default="" />
         <attribute name="isCreateChecksum" default="true" />
@@ -32,49 +31,41 @@
             </tstamp>
 
             <!-- artifact.lane -->
-            <var name="##artifact.lane.dir##" value="jenkins" />
+            <var name="##artifact.lane.dir##" value="@{artifactLane}" />
             <if>
-                <not>
-                    <equals arg1="@{artifactLane}" arg2="" trim="true" />
-                </not>
-                <then>
-                    <var name="##artifact.lane.dir##" value="@{artifactLane}/" />
-                </then>
+              <equals arg1="@{artifactLane}" arg2="" trim="true" />
+              <then>
+                <var name="##artifact.lane.dir##" value="jenkins" />
+              </then>
             </if>
 
             <!-- group.id -->
-            <var name="##group.id.dir##" value="" />
             <if>
-                <not>
-                    <equals arg1="@{groupId}" arg2="" trim="true" />
-                </not>
-                <then>
-                    <propertyregex property="group.id.dir" input="@{groupId}" regexp="\." replace="/" global="true" defaultValue="@{groupId}" />
-                    <var name="##group.id.dir##" value="${group.id.dir}/" />
-                </then>
-                <else>
-                  <fail messasge=" --// production info(group.id) is not configure" />
-                </else>
+              <equals arg1="@{groupId}" arg2="" trim="true" />
+              <then>
+                <fail messasge=" --// production info(group.id) is not configure" />
+              </then>
+              <else>
+                <propertyregex property="group.id.dir" input="@{groupId}" regexp="\." replace="/" global="true" defaultValue="@{groupId}" />
+                <var name="##group.id.dir##" value="${group.id.dir}" />
+              </else>
             </if>
 
             <!-- artifact.id -->
-            <var name="##artifact.id.dir##" value="" />
             <if>
-                <not>
-                    <equals arg1="@{artifactId}" arg2="" trim="true" />
-                </not>
-                <then>
-                    <var name="##artifact.id.dir##" value="@{artifactId}/" />
-                </then>
-                <else>
-                  <fail message="--// production info(artifact.id) is not configure" />
-                </else>
+              <equals arg1="@{artifactId}" arg2="" trim="true" />
+              <then>
+                <fail message="--// production info(artifact.id) is not configure" />
+              </then>
+              <else>
+                <var name="##artifact.id.dir##" value="@{artifactId}" />
+              </else>
             </if>
 
-            <var name="##artifact.path##" value="${##group.id.dir##}${##artifact.id.dir##}" />
+            <var name="##artifact.path##" value="${##group.id.dir##}/${##artifact.id.dir##}" />
 
             <property name="outputDir" location="${task.reports.dir}" />
-            <var name="tempOutputFile" value="${outputDir}/ftpartifact-report.xml" />
+            <var name="tempOutputFile" value="${outputDir}/cloudartifact-report.xml" />
 
             <delete dir="${artifacts.dir}" /><mkdir dir="${artifacts.dir}" />
 
@@ -123,7 +114,7 @@
                                 </else>
                             </if>
 
-                            <echo message="version.filename: ${version.filename}" />
+                            <echo message="--// version.filename: ${version.filename}" />
                             <var name="remotedir" value="${##artifact.path##}/${today}/${svn.branch.name}/${version.filename}" />
                         </then>
                         <elseif>
@@ -145,13 +136,13 @@
                     </if>
                 </then>
                 <else>
-                    <var name="remotedir" value="${##artifact.path##}@{artifactVersion}" />
+                  <var name="remotedir" value="${##artifact.path##}/@{artifactVersion}" />
                 </else>
             </if>
 
-            <var name="remotedir" value="${##artifact.lane.dir##}${remotedir}" />
+            <var name="remotedir" value="${##artifact.lane.dir##}/${remotedir}" />
 
-            <echo message="artifact path: ${remotedir}" />
+            <echo message="--// artifact path: ${remotedir}" />
 
             <if>
               <istrue value="@{isCreateChecksum}" />

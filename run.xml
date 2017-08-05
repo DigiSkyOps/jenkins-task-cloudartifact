@@ -9,9 +9,9 @@
 
     <target name="cloudartifact">
 
+        <!-- default value arguments -->
         <property name="scm.type" value="git" />
 
-        <!-- default value arguments -->
         <property name="cloud.provider" value="qcloud" />
         <property name="app.id" value="" />
         <property name="secret.id" value="" />
