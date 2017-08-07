@@ -82,10 +82,12 @@
         <tr>
             <td>./artifact</td>
             <td>
-              <p>CloudProvider: <xsl:value-of select="cloudProvider/@value" /></p>
-              <p>Region: <xsl:value-of select="region/@value" /></p>
-              <p>Bucket: <xsl:value-of select="bucket/@value" /></p>
-              <p>RemoteDir: /<xsl:value-of select="remoteDir/@value" /></p>
+              <pre>
+                CloudProvider: <xsl:value-of select="cloudProvider/@value" />
+                Region: <xsl:value-of select="region/@value" />
+                Bucket: <xsl:value-of select="bucket/@value" />
+                RemoteDir: /<xsl:value-of select="remoteDir/@value" />
+              </pre>
             </td>
         </tr>
     </xsl:template>
