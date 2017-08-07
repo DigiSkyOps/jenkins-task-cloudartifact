@@ -199,7 +199,7 @@
         </sequential>
     </macrodef>
 
-    <macrodef name="cloudprovider-jar">
+    <macrodef name="cloudartifact-jar">
       <element name="cmdargs" />
       <sequential>
         <property name="cloudartifact.jar.path" location="${task.basedir}/tool/cloudartifact-all-1.0.0.jar" />
