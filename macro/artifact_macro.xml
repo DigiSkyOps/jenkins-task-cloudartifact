@@ -180,7 +180,7 @@
                   <cloudProvider value="@{cloudProvider}" />
                   <region value="@{region}" />
                   <bucket value="@{bucket}" />
-                  <remoteDir url="/${remotedir}/" />
+                  <remoteDir value="/@{remotedir}/" />
                 </artifact>
             </echoxml>
 
