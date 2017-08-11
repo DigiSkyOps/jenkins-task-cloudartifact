@@ -24,3 +24,23 @@ cloudartifact
 | fileset.exclude| string | 空 | **必须** | 需要归档的文件目录下需要排除的文件，也就是不需要归档的文件模式 |
 | allow.redeploy | boolean | false | **必须** | 是否可以覆盖已归档文件 |
 | is.create.checksum | boolean | true | **必须** | 是否需要创建md5校验文件 |
+
+# 配置使用样例
+
+```yml
+stages:
+- name: artifact
+  tasks:
+    - task.id: cloudartifact
+      app.id: '12xxxxxx218'
+      secret.id: 'AKIDxxxxxxxxxxxxO3rr3mjqSWI'
+      secret.key: 'msvn9xxxxxxxxxxRg5Xvm496'
+      region: 'gz'
+      bucket: 'sgz2tx'
+      artifact.lane: 'qa'
+      artifact.version: $PIPELINE_VERSION
+      fileset.dir: 'resdl'
+      fileset.includes: '*.tar.gz,*.md5'
+      is.create.checksum: false
+      allow.redeploy: true
+```
