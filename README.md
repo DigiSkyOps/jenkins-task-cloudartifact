@@ -18,6 +18,8 @@ cloudartifact
 | region | string | 空 | **必须** | 存储区域编号，比如：华北(tj), 西南(cd) |
 | bucket | string | 空 | **必须** | 存储bucket名称 |
 | artifact.lane | string | jenkins | **必须** | 存储分区，分区规范样例比如： dev/test/qa/prod等 |
+| group.id | string | 空 | **必须** | 用于创建归档目录 |
+| artifact.id | string | 空 | **必须** | 用于创建归档项目目录 |
 | artifact.version | string | 空 | **必须** | 归档版本，如果为空也就是默认值，那么会通过scm.type自动生成 |
 | fileset.dir | string | 空 | **必须** | 需要归档的文件目录 |
 | fileset.includes | string | 空 | **必须** | 需要归档的文件目录下需要包含的文件模式 |
