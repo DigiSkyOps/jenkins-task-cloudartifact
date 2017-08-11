@@ -160,19 +160,38 @@
                 <fileset dir="${artifacts.dir}"/>
               </path>
               <sequential>
-                <cloudartifact-jar>
-                  <cmdargs>
-                    <arg line="-provider @{cloudProvider}" />
-                    <arg line="-appId @{appId}" />
-                    <arg line="-secretId @{secretId}" />
-                    <arg line="-secretKey @{secretKey}" />
-                    <arg line="-region @{region}" />
-                    <arg line="-bucket @{bucket}" />
-                    <arg line="-remoteDir /${remotedir}/" />
-                    <arg line="-redeploy @{allowRedeploy}" />
-                    <arg line="@{artifactfile}" />
-                  </cmdargs>
-                </cloudartifact-jar>
+                <if>
+                  <istrue value="@{allowRedeploy}" />
+                  <then>
+                    <cloudartifact-jar>
+                      <cmdargs>
+                        <arg line="-provider @{cloudProvider}" />
+                        <arg line="-appId @{appId}" />
+                        <arg line="-secretId @{secretId}" />
+                        <arg line="-secretKey @{secretKey}" />
+                        <arg line="-region @{region}" />
+                        <arg line="-bucket @{bucket}" />
+                        <arg line="-remoteDir /${remotedir}/" />
+                        <arg line="-redeploy" />
+                        <arg line="@{artifactfile}" />
+                      </cmdargs>
+                    </cloudartifact-jar>
+                  </then>
+                  <else>
+                    <cloudartifact-jar>
+                      <cmdargs>
+                        <arg line="-provider @{cloudProvider}" />
+                        <arg line="-appId @{appId}" />
+                        <arg line="-secretId @{secretId}" />
+                        <arg line="-secretKey @{secretKey}" />
+                        <arg line="-region @{region}" />
+                        <arg line="-bucket @{bucket}" />
+                        <arg line="-remoteDir /${remotedir}/" />
+                        <arg line="@{artifactfile}" />
+                      </cmdargs>
+                    </cloudartifact-jar>
+                  </else>
+                </if>
               </sequential>
             </for>
 
