@@ -86,7 +86,7 @@
                 CloudProvider: <xsl:value-of select="cloudProvider/@value" />
                 Region: <xsl:value-of select="region/@value" />
                 Bucket: <xsl:value-of select="bucket/@value" />
-                RemoteDir: /<xsl:value-of select="remoteDir/@value" />
+                RemoteDir: <xsl:value-of select="remoteDir/@value" />
               </pre>
             </td>
         </tr>
