@@ -169,6 +169,7 @@
                     <arg line="-region @{region}" />
                     <arg line="-bucket @{bucket}" />
                     <arg line="-remoteDir /${remotedir}/" />
+                    <arg line="-redeploy @{allowRedeploy}" />
                     <arg line="@{artifactfile}" />
                   </cmdargs>
                 </cloudartifact-jar>
