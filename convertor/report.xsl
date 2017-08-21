@@ -24,21 +24,20 @@
 
     </xsl:template>
 
-
     <xsl:template match="/" mode="summary">
-        <xsl:if test="count($process.root//artifact) > 0">
+        <xsl:if test="count($process.root//cloudartifact) > 0">
             <xsl:call-template name="task.summary.sublayer"/>
         </xsl:if>
     </xsl:template>
 
 
     <xsl:template match="/" mode="task.layer">
-        <xsl:if test="count($process.root//artifact) > 0">
-            <h2 align="center">artifact report</h2>
+        <xsl:if test="count($process.root//cloudartifact) > 0">
+            <h2 align="center">cloudartifact report</h2>
             <xsl:call-template name="task.summary.sublayer" />
         </xsl:if>
-        <xsl:if test="count($process.root//artifact) = 0 and count(//artifact) = 0">
-            <p align="center">artifact was not run against this project. </p>
+        <xsl:if test="count($process.root//cloudartifact) = 0 and count(//cloudartifact) = 0">
+            <p align="center">cloudartifact was not run against this project. </p>
         </xsl:if>
     </xsl:template>
 
@@ -66,30 +65,33 @@
                             Name
                         </xsl:if>
                     </th>
-                    <th>artifact info</th>
+                    <th>download urls</th>
                 </tr>
 
                 <xsl:if test="count($process.root) > 0">
                     <xsl:for-each select="$process.root">
-                        <xsl:apply-templates select="artifact" mode="currentnode.task.layer" />
+                        <xsl:apply-templates select="cloudartifact" mode="currentnode.task.layer" />
                     </xsl:for-each>
                 </xsl:if>
             </tbody>
         </table>
     </xsl:template>
 
-    <xsl:template match="artifact" mode="currentnode.task.layer">
-        <tr>
-            <td>./artifact</td>
-            <td>
-              <pre>
-                CloudProvider: <xsl:value-of select="cloudProvider/@value" />
-                Region: <xsl:value-of select="region/@value" />
-                Bucket: <xsl:value-of select="bucket/@value" />
-                RemoteDir: <xsl:value-of select="remoteDir/@value" />
-              </pre>
-            </td>
-        </tr>
+    <xsl:template match="cloudartifact" mode="currentnode.task.layer">
+      <xsl:variable name="artifact.files" select="count(./files//file)" />
+      <tr>
+        <td><xsl:attribute name="rowspan"><xsl:value-of select="$artifact.files" /></xsl:attribute>./cloudartifact</td>
+
+        <xsl:for-each select="./files">
+          <td>
+            <a>
+              <xsl:attribute name="href"><xsl:value-of select="file/@path" /></xsl:attribute>
+              <xsl:attribute name="target">_blank</xsl:attribute>
+              <xsl:value-of select="file/@path" />
+            </a>
+          </td>
+        </xsl:for-each>
+      </tr>
     </xsl:template>
 
 </xsl:stylesheet>

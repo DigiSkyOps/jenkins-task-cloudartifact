@@ -172,6 +172,7 @@
                         <arg line="-region @{region}" />
                         <arg line="-bucket @{bucket}" />
                         <arg line="-remoteDir /${remotedir}/" />
+                        <arg line="--out-xml @{tempOutputFile}" />
                         <arg line="-redeploy" />
                         <arg line="@{artifactfile}" />
                       </cmdargs>
@@ -187,6 +188,7 @@
                         <arg line="-region @{region}" />
                         <arg line="-bucket @{bucket}" />
                         <arg line="-remoteDir /${remotedir}/" />
+                        <arg line="--out-xml @{tempOutputFile}" />
                         <arg line="@{artifactfile}" />
                       </cmdargs>
                     </cloudartifact-jar>
@@ -194,15 +196,6 @@
                 </if>
               </sequential>
             </for>
-
-            <echoxml file="${tempOutputFile}">
-                <artifact>
-                  <cloudProvider value="@{cloudProvider}" />
-                  <region value="@{region}" />
-                  <bucket value="@{bucket}" />
-                  <remoteDir value="/${remotedir}/" />
-                </artifact>
-            </echoxml>
 
             <if>
                 <available file="${tempOutputFile}" />
