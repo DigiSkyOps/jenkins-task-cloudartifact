@@ -172,7 +172,7 @@
                         <arg line="-region @{region}" />
                         <arg line="-bucket @{bucket}" />
                         <arg line="-remoteDir /${remotedir}/" />
-                        <arg line="--out-xml @{tempOutputFile}" />
+                        <arg line="--out-xml ${tempOutputFile}" />
                         <arg line="-redeploy" />
                         <arg line="@{artifactfile}" />
                       </cmdargs>
@@ -188,7 +188,7 @@
                         <arg line="-region @{region}" />
                         <arg line="-bucket @{bucket}" />
                         <arg line="-remoteDir /${remotedir}/" />
-                        <arg line="--out-xml @{tempOutputFile}" />
+                        <arg line="--out-xml ${tempOutputFile}" />
                         <arg line="@{artifactfile}" />
                       </cmdargs>
                     </cloudartifact-jar>
