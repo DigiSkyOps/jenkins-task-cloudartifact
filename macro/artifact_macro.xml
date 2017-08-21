@@ -155,47 +155,51 @@
               </then>
             </if>
 
+            <var name="##artifact.files##" value="" />
+
             <for param="artifactfile">
               <path>
                 <fileset dir="${artifacts.dir}"/>
               </path>
               <sequential>
-                <if>
-                  <istrue value="@{allowRedeploy}" />
-                  <then>
-                    <cloudartifact-jar>
-                      <cmdargs>
-                        <arg line="-provider @{cloudProvider}" />
-                        <arg line="-appId @{appId}" />
-                        <arg line="-secretId @{secretId}" />
-                        <arg line="-secretKey @{secretKey}" />
-                        <arg line="-region @{region}" />
-                        <arg line="-bucket @{bucket}" />
-                        <arg line="-remoteDir /${remotedir}/" />
-                        <arg line="--out-xml ${tempOutputFile}" />
-                        <arg line="-redeploy" />
-                        <arg line="@{artifactfile}" />
-                      </cmdargs>
-                    </cloudartifact-jar>
-                  </then>
-                  <else>
-                    <cloudartifact-jar>
-                      <cmdargs>
-                        <arg line="-provider @{cloudProvider}" />
-                        <arg line="-appId @{appId}" />
-                        <arg line="-secretId @{secretId}" />
-                        <arg line="-secretKey @{secretKey}" />
-                        <arg line="-region @{region}" />
-                        <arg line="-bucket @{bucket}" />
-                        <arg line="-remoteDir /${remotedir}/" />
-                        <arg line="--out-xml ${tempOutputFile}" />
-                        <arg line="@{artifactfile}" />
-                      </cmdargs>
-                    </cloudartifact-jar>
-                  </else>
-                </if>
+                <var name="##artifact.files##" value="${##artifact.files##} @{artifactfile}" />
               </sequential>
             </for>
+
+            <if>
+              <istrue value="@{allowRedeploy}" />
+              <then>
+                <cloudartifact-jar>
+                  <cmdargs>
+                    <arg line="-provider @{cloudProvider}" />
+                    <arg line="-appId @{appId}" />
+                    <arg line="-secretId @{secretId}" />
+                    <arg line="-secretKey @{secretKey}" />
+                    <arg line="-region @{region}" />
+                    <arg line="-bucket @{bucket}" />
+                    <arg line="-remoteDir /${remotedir}/" />
+                    <arg line="--out-xml ${tempOutputFile}" />
+                    <arg line="-redeploy" />
+                    <arg line="${##artifact.files##}" />
+                  </cmdargs>
+                </cloudartifact-jar>
+              </then>
+              <else>
+                <cloudartifact-jar>
+                  <cmdargs>
+                    <arg line="-provider @{cloudProvider}" />
+                    <arg line="-appId @{appId}" />
+                    <arg line="-secretId @{secretId}" />
+                    <arg line="-secretKey @{secretKey}" />
+                    <arg line="-region @{region}" />
+                    <arg line="-bucket @{bucket}" />
+                    <arg line="-remoteDir /${remotedir}/" />
+                    <arg line="--out-xml ${tempOutputFile}" />
+                    <arg line="${##artifact.files##}" />
+                  </cmdargs>
+                </cloudartifact-jar>
+              </else>
+            </if>
 
             <if>
                 <available file="${tempOutputFile}" />
