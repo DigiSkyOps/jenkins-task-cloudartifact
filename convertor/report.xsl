@@ -82,12 +82,12 @@
       <tr>
         <td><xsl:attribute name="rowspan"><xsl:value-of select="$artifact.files" /></xsl:attribute>./cloudartifact</td>
 
-        <xsl:for-each select="./files">
+        <xsl:for-each select="./files/file">
           <td>
             <a>
-              <xsl:attribute name="href"><xsl:value-of select="file/@path" /></xsl:attribute>
+              <xsl:attribute name="href"><xsl:value-of select="@path" /></xsl:attribute>
               <xsl:attribute name="target">_blank</xsl:attribute>
-              <xsl:value-of select="file/@path" />
+              <xsl:value-of select="@path" />
             </a>
           </td>
         </xsl:for-each>
