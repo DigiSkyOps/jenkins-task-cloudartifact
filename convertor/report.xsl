@@ -79,8 +79,8 @@
 
     <xsl:template match="cloudartifact" mode="currentnode.task.layer">
       <xsl:variable name="artifact.files" select="count(./files//file)" />
-      <tr>
-        <xsl:for-each select="./files/file">
+      <xsl:for-each select="./files/file">
+        <tr>
           <xsl:if test="position() = 1">
             <td><xsl:attribute name="rowspan"><xsl:value-of select="$artifact.files" /></xsl:attribute>./cloudartifact</td>
           </xsl:if>
@@ -91,8 +91,8 @@
               <xsl:value-of select="@path" />
             </a>
           </td>
-        </xsl:for-each>
-      </tr>
+        </tr>
+      </xsl:for-each>
     </xsl:template>
 
 </xsl:stylesheet>
