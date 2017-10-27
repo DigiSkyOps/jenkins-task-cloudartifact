@@ -13,11 +13,37 @@
         <property name="scm.type" value="git" />
 
         <property name="cloud.provider" value="qcloud" />
-        <property name="app.id" value="" />
-        <property name="secret.id" value="" />
-        <property name="secret.key" value="" />
-        <property name="region" value="" />
-        <property name="bucket" value="" />
+
+        <if>
+          <isset property="qcloud.app.id" />
+          <then>
+            <propertycopy name="app.id" from="${cloud.provider}.app.id" />
+          </then>
+        </if>
+        <if>
+          <isset property="qcloud.secret.id" />
+          <then>
+            <propertycopy name="secret.id" from="${cloud.provider}.secret.id" />
+          </then>
+        </if>
+        <if>
+          <isset property="qcloud.secret.key" />
+          <then>
+            <propertycopy name="secret.key" from="${cloud.provider}.secret.key" />
+          </then>
+        </if>
+        <if>
+          <isset property="qcloud.region" />
+          <then>
+            <propertycopy name="region" from="${cloud.provider}.region" />
+          </then>
+        </if>
+        <if>
+          <isset property="qcloud.region" />
+          <then>
+            <propertycopy name="bucket" from="${cloud.provider}.bucket" />
+          </then>
+        </if>
 
         <property name="artifact.lane" value="jenkins" />
         <property name="artifact.suffix" value="" />
